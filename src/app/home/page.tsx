@@ -23,6 +23,7 @@ export default function Home() {
     async function handleCreateRoom(): Promise<void> {
         const roomCode = await createRoom();
         console.log(roomCode);
+        router.push("/host");
     }
 
     return (

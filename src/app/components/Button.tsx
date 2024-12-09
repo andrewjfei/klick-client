@@ -15,7 +15,7 @@ export default function Button({
 }: ButtonProps): ReactNode {
     return (
         <button
-            className={`py-2 bg-orange-400 ${className}`}
+            className={`py-2 rounded-md bg-orange-400 ${className}`}
             type={type}
             onClick={onClick}
         >
