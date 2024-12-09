@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/app/models";
+import { Team, User } from "@/app/models";
 import { SignalRContext } from "@/app/contexts";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { ReactNode, useEffect, useState } from "react";
@@ -16,6 +16,7 @@ export default function SignalRProvider({
     const [roomCode, setRoomCode] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [users, setUsers] = useState<User[]>([]);
+    const [teams, setTeams] = useState<Team[]>([]);
 
     useEffect(() => {
         const hubConnection = new HubConnectionBuilder()
@@ -27,7 +28,7 @@ export default function SignalRProvider({
 
         hubConnection.on("JoinedRoom", (connectionId: string, name: string) => {
             const user: User = new User(connectionId, name);
-            
+
             // Add new user to room users array.
             setUsers((users) => [...users, user]);
 
@@ -36,7 +37,9 @@ export default function SignalRProvider({
 
         hubConnection.on("LeftRoom", (connectionId: string, name: string) => {
             // Remove user from room users array.
-            setUsers((users) => users.filter((user) => user.connectionId !== connectionId));
+            setUsers((users) =>
+                users.filter((user) => user.connectionId !== connectionId)
+            );
 
             console.log(`${name} has left the room.`);
         });
@@ -63,6 +66,17 @@ export default function SignalRProvider({
         }
     }
 
+    async function addTeam(teamName: string): Promise<void> {
+        if (connection) {
+            const teamId: string | null = await connection.invoke("AddTeam");
+
+            if (teamId !== null) {
+                const team: Team = new Team(teamId, teamName);
+                setTeams((teams) => [...teams, team]);
+            }
+        }
+    }
+
     async function joinRoom(roomCode: string): Promise<void> {
         if (connection) {
             await connection.invoke("JoinRoom", roomCode);
@@ -79,7 +93,16 @@ export default function SignalRProvider({
 
     return (
         <SignalRContext.Provider
-            value={{ roomCode, name, users, createRoom, joinRoom, chooseName }}
+            value={{
+                roomCode,
+                name,
+                users,
+                teams,
+                createRoom,
+                addTeam,
+                joinRoom,
+                chooseName
+            }}
         >
             {children}
         </SignalRContext.Provider>
