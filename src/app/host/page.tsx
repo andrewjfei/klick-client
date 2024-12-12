@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import { useSignalR } from "@/app/hooks";
 import { User } from "@/app/models";
-import { NameTag } from "@/app/components";
+import { Tag } from "@/app/components";
 
 export default function Host(): ReactNode {
     const { users } = useSignalR();
@@ -12,7 +12,7 @@ export default function Host(): ReactNode {
         <div>
             <div className={"bg-red-100 p-16"}>
                 {users.map((user: User) => (
-                    <NameTag key={user.connectionId} name={user.name} />
+                    <Tag key={user.connectionId} text={user.name} />
                 ))}
             </div>
         </div>

@@ -1,2 +1,9 @@
 export { default as Button } from "./Button";
-export { default as NameTag } from "./NameTag";
+export { default as IconButton } from "./IconButton";
+export { default as LeaderboardCard } from "./LeaderboardCard";
+export { default as Modal } from "./Modal";
+export { default as Tag } from "./Tag";
+export { default as TextInput } from "./TextInput";
+export { default as ToggleButton } from "./ToggleButton";
+export { default as ToggleButtonGroup } from "./ToggleButtonGroup";
+export { default as Typography } from "./Typography";
