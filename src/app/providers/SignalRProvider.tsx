@@ -64,7 +64,7 @@ export default function SignalRProvider({
 
             // Update socring state of user to complete (i.e. submitted vote for this round).
             setUsers((users) => {
-                let updatedUsers: User[] = users.map((user: User) => {
+                const updatedUsers: User[] = users.map((user: User) => {
                     if (user.connectionId === connectionId) {
                         user.state = Scoring.Completed;
                     }
@@ -155,11 +155,14 @@ export default function SignalRProvider({
         }
     }
 
-    async function joinRoom(roomCode: string): Promise<void> {
+    async function joinRoom(roomCode: string): Promise<boolean> {
         if (connection) {
-            await connection.invoke("JoinRoom", roomCode);
+            const joinedRoom: boolean = await connection.invoke("JoinRoom", roomCode);
             setRoomCode(roomCode);
+            return joinedRoom;
         }
+        
+        return false;
     }
 
     async function chooseName(name: string): Promise<void> {

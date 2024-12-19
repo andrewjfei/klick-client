@@ -15,10 +15,15 @@ export default function TextInput({
     uppercase = false,
     placeholder = "",
     value = "",
-    onChange = () => {}
-
+    onChange = () => { }
 }: TextInputProps): ReactNode {
     return (
-        <input className={`px-5 py-3 rounded-xl border-2 font-medium placeholder:capitalize bg-stone-200 ${uppercase && "uppercase"} ${className}`} type={type} placeholder={placeholder} value={value} onChange={onChange} />
+        <input
+            className={`px-5 py-3 rounded-xl border-2 font-medium placeholder:capitalize text-black bg-stone-200 ${uppercase && "uppercase"} ${className}`}
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+        />
     );
 }

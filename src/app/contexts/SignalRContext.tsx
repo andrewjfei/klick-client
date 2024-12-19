@@ -14,7 +14,7 @@ export interface SignalRContextProps {
     addCriterion: (value: string) => Promise<void>;
     addTeam: (teamName: string) => Promise<void>;
     startScoring: (teamId: string) => Promise<void>;
-    joinRoom: (roomCode: string) => Promise<void>;
+    joinRoom: (roomCode: string) => Promise<boolean>;
     chooseName: (name: string) => Promise<void>;
     giveScore: (core: number) => Promise<void>;
 }

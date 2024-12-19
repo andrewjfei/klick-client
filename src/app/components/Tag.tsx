@@ -39,11 +39,12 @@ export default function Tag({
             textClassName = "text-xl font-semibold";
             break;
     }
+
     return (
-        <div 
-            className={`inline rounded-md ${state === Scoring.NotStarted ? "bg-orange-300" : state === Scoring.InProgress ? "bg-amber-300" : "bg-green-300"} ${containerClassName} ${className}`}
+        <div
+            className={`inline rounded-md ${state === Scoring.NotStarted ? "bg-orange-400" : state === Scoring.InProgress ? "bg-amber-400" : "bg-green-400"} ${containerClassName} ${className}`}
         >
-            <h2 className={`${textClassName}`}>{text.toUpperCase()}</h2>
+            <h2 className={`text-white ${textClassName}`}>{text.toUpperCase()}</h2>
         </div>
     );
 }
