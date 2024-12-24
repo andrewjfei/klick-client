@@ -12,9 +12,10 @@ import { useSignalR } from "@/app/hooks";
 import { Team, User } from "@/app/models";
 import { ReactNode } from "react";
 import { IconTrophy, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { righteous } from "@/app/fonts";
 
 export default function Dashboard(): ReactNode {
-    const { roomCode, users, teams, startScoring } = useSignalR();
+    const { roomCode, users, teams, startScoring, team: scoringTeam } = useSignalR();
 
     function handleStart(teamId: string): void {
         startScoring(teamId);
@@ -22,21 +23,26 @@ export default function Dashboard(): ReactNode {
 
     return (
         <div className="flex-grow flex flex-col">
-            <div className="flex flex-row justify-between">
-                <IconTrophy size={24} />
+            <div className="flex flex-row justify-between items-center">
+                <Typography
+                    className={`${righteous.className} font-bold text-3xl text-stone-900`}
+                    variant="p"
+                    text="klick"
+                />
+                {/* <IconTrophy size={24} /> */}
                 <Tag text={roomCode} />
             </div>
-            <div className="flex-grow flex flex-row">
-                {/* <div className="flex flex-col">
+            <div className="flex-grow grid grid-cols-12 gap-6 mt-4">
+                <div className="col-span-6 flex flex-col">
                     <div className="flex flex-row justify-start">
                         <Typography variant="h2" text="Leaderboard" />
                     </div>
-                    <div className="w-96 me-6 p-4 flex-grow rounded-3xl bg-white overflow-y-scroll no-scrollbar">
+                    <div className="p-4 h-1 flex-grow rounded-3xl bg-white overflow-y-scroll no-scrollbar">
                         {teams
                             .sort((a: Team, b: Team) => b.score - a.score)
                             .map((team: Team, index: number) => (
                                 <LeaderboardCard
-                                    className={`mt-2 first:mt-0`}
+                                    className={`mt-4 first:mt-0`}
                                     key={team.id}
                                     rank={index + 1}
                                     name={team.name}
@@ -48,36 +54,39 @@ export default function Dashboard(): ReactNode {
                                 />
                             ))}
                     </div>
-                </div> */}
-                <div className="flex-grow flex flex-col">
+                </div>
+
+                <div className="col-span-6 flex flex-col">
                     <div className="flex flex-col">
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant="h2" text="Users" />
                             <Tag size="xl" text={users.length.toString()} />
                         </div>
-                        <div className="p-4 flex flex-row justify-center rounded-3xl bg-orange-100">
+                        <div className="p-4 h-72 grid grid-cols-5 grid-rows-5 gap-4 rounded-3xl bg-orange-100">
+
                             {users.map((user: User) => (
-                                <Tag
-                                    className="mx-2"
-                                    key={user.connectionId}
-                                    text={user.name}
-                                    state={user.state}
-                                />
+                                <div className="flex justify-center items-center" key={user.connectionId}>
+                                    <Tag
+                                        className="w-full flex justify-center"
+                                        text={user.name}
+                                        state={user.state}
+                                    />
+                                </div>
                             ))}
                         </div>
                     </div>
-                    <div className="mt-4 flex-grow flex flex-col">
+                    <div className="mt-3 flex-grow flex flex-col">
                         <div className="flex flex-row justify-between">
                             <Typography variant="h2" text="Teams" />
                         </div>
-                        <div className="p-4 flex-grow rounded-3xl bg-white overflow-y-scroll no-scrollbar">
+                        <div className="p-4 h-1 flex-grow flex flex-col rounded-3xl bg-white overflow-y-scroll no-scrollbar">
                             {teams.map((team: Team) => (
                                 <div
-                                    className={`mt-2 first:mt-0 px-2 py-3 flex flex-row justify-between items-center rounded-2xl bg-stone-100`}
+                                    className={`mt-4 first:mt-0 px-4 py-3 flex flex-row justify-between items-center rounded-2xl bg-stone-100`}
                                     key={team.id}
                                 >
-                                    <div className="ms-3 flex flex-col items-start">
-                                        <h2 className="text-black font-bold">
+                                    <div className="flex flex-col items-start">
+                                        <h2 className="text-stone-900 font-bold">
                                             {team.name}
                                         </h2>
                                         <Tag
@@ -98,6 +107,7 @@ export default function Dashboard(): ReactNode {
                                     {team.state === Scoring.NotStarted && (
                                         <IconButton
                                             variant="outline"
+                                            disabled={scoringTeam !== null}
                                             icon={IconPlayerPlayFilled}
                                             onClick={() => handleStart(team.id)}
                                         />

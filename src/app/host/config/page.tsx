@@ -86,20 +86,21 @@ export default function Config(): ReactNode {
             </Modal>
 
             <div className="flex-grow flex flex-col">
-                <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-between items-center">
                     <Typography
                         className={`${righteous.className} font-bold text-3xl text-stone-900`}
                         variant="p"
                         text="klick"
                     />
                     <Button
+                        className="!px-4 !py-2"
                         type="button"
                         text="Ready"
                         onClick={handleReadyButton}
                     />
                 </div>
-                <div className="flex-grow grid grid-cols-2 gap-8">
-                    <div className="flex-grow flex flex-col">
+                <div className="mt-4 flex-grow grid grid-cols-12 gap-6">
+                    <div className="col-span-6 flex flex-col">
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant={"h2"} text={"Criteria"} />
                             <IconButton
@@ -123,7 +124,7 @@ export default function Config(): ReactNode {
                             </div>
                         </div>
                     </div>
-                    <div className="flex-grow flex flex-col">
+                    <div className="col-span-6 flex flex-col">
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant={"h2"} text={"Teams"} />
                             <IconButton

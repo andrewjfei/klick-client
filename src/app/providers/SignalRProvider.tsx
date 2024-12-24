@@ -20,6 +20,7 @@ export default function SignalRProvider({
     const [users, setUsers] = useState<User[]>([]);
     const [criteria, setCriteria] = useState<string[]>([]);
     const [teams, setTeams] = useState<Team[]>([]);
+    const [messages, setMessages] = useState<string[]>([]);
 
     useEffect(() => {
         const hubConnection = new HubConnectionBuilder()
@@ -48,10 +49,11 @@ export default function SignalRProvider({
         });
 
         hubConnection.on("StartScoring", (criteria: string[], teamId: string, teamName: string) => {
-            console.log(criteria);
             setCriteria(criteria);
 
             const team: Team = new Team(teamId, teamName);
+
+            console.log(team);
 
             // Set reference team for users to score for.
             setTeam(team);
@@ -82,13 +84,20 @@ export default function SignalRProvider({
                 if (team.id === teamId) {
                     team.score = teamScore;
 
-                    if (isScoringComplete) team.state = Scoring.Completed;
+                    if (isScoringComplete) {
+                        setTeam((team) => team && team.id === teamId ? null : team);
+                        team.state = Scoring.Completed;
+                    }
                 }
 
                 return team;
             }));
 
             console.log(`Updated team ${teamId} to ${teamScore}.`);
+        });
+
+        hubConnection.on("Message", (connectionId: string, message: string) => {
+            
         });
 
         hubConnection

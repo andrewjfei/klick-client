@@ -25,7 +25,7 @@ export default function Home() {
         <div className="flex-grow flex flex-col justify-center items-center">
         <div className="w-96 flex-grow flex flex-col justify-evenly">
             <div className="flex flex-row justify-center">
-                <p className={`${righteous.className} text-7xl select-none`}>klick</p>
+                <p className={`${righteous.className} text-7xl select-none text-stone-900`}>klick</p>
             </div>
             <div className="flex flex-col">
             <form onSubmit={handleChooseName} className="flex flex-col">

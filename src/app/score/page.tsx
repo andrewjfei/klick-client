@@ -64,7 +64,7 @@ export default function Score(): ReactNode {
                             onSubmit={handleSubmit}
                         >
                             <div className="py-10 flex flex-row justify-center">
-                                <h1 className="font-bold text-4xl">{team.name}</h1>
+                                <h1 className="font-bold text-4xl text-stone-900">{team.name}</h1>
                             </div>
                             <div className="flex-grow overflow-y-scroll no-scrollbar">
                                 {
