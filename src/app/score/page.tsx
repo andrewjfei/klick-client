@@ -6,11 +6,12 @@ import { Alert, Button, IconButton, TextInput, ToggleButton, ToggleButtonGroup, 
 import { IconSend } from "@tabler/icons-react";
 
 export default function Score(): ReactNode {
-    const { team, criteria, giveScore } = useSignalR();
+    const { team, criteria, giveScore, sendMessage } = useSignalR();
 
     const scores = [1, 2, 3, 4, 5];
 
     const [isAlertActive, setIsAlertActive] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
     const [message, setMessage] = useState<string>("");
     const [isSubmitDisabled, setIsSubmitDisabled] = useState<boolean>(true);
     const [criterionScore, setCriterionScore] = useState<{ [key: string]: number }>({});
@@ -20,6 +21,15 @@ export default function Score(): ReactNode {
             setIsSubmitDisabled(Object.values(criterionScore).length !== criteria.length);
         }
     }, [criterionScore]);
+
+    async function handleSendMessage(event: FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+
+        await sendMessage(message);
+        setMessage("");
+        setAlertMessage("Messenge Sent")
+        setIsAlertActive(true);
+    }
 
     function handleCriterionScore(criterion: string, score: number): void {
         const updatedCriterionScore = { ...criterionScore };
@@ -34,12 +44,13 @@ export default function Score(): ReactNode {
         const score = Object.values(criterionScore).reduce((agg, value) => agg + value, 0);
         await giveScore(score);
         setCriterionScore({});
+        setAlertMessage("Score Submitted");
         setIsAlertActive(true);
     }
 
     return (
         <Fragment>
-            <Alert variant="success" active={isAlertActive} message={"Score Submitted"} onClear={() => setIsAlertActive(false)} />
+            <Alert variant="success" active={isAlertActive} message={alertMessage} onClear={() => setIsAlertActive(false)} />
             <div className="flex-grow flex">
                 {
                     team === null ?
@@ -48,12 +59,15 @@ export default function Score(): ReactNode {
                             <div className="flex-grow flex flex-col justify-center items-center">
                                 <Typography variant="h4" text="Waiting on host to start scoring..." />
                             </div>
-                            <form className="flex flex-row justify-between">
+                            <form 
+                                className="flex flex-row justify-between"                             
+                                onSubmit={handleSendMessage}
+                            >
                                 <TextInput className="flex-grow me-4" type={"text"} placeholder={"Message"} value={message} onChange={(e) => setMessage(e.target.value)} />
                                 <IconButton
                                     variant="solid"
+                                    type="submit"
                                     icon={IconSend}
-                                    onClick={() => {}}
                                 />
                             </form>
                         </div>

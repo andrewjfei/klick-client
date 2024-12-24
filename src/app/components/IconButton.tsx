@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 interface IconButtonProps {
     className?: string;
     variant?: "solid" | "outline";
+    type: "button" | "submit";
     disabled?: boolean;
     icon: Icon;
     onClick?: () => void;
@@ -12,6 +13,7 @@ interface IconButtonProps {
 export default function IconButton({
     className = "",
     variant = "solid",
+    type,
     disabled = false,
     icon: Icon = IconPlus,
     onClick = () => {}
@@ -32,7 +34,7 @@ export default function IconButton({
     return(
         <button
             className={`group px-3 py-2 rounded-xl border-2 transition-all ease-in-out duration-200 ${containerClassName} ${className}`}
-            type={"button"}
+            type={type}
             disabled={disabled}
             onClick={onClick}
         >

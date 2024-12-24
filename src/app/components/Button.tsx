@@ -28,7 +28,7 @@ export default function Button({
                     onClick={onClick}
                 >
                     <Typography 
-                        className={`font-medium ${disabled ? "text-stone-100" : "text-orange-300 group-hover:text-orange-500"}`}
+                        className={`font-medium ${disabled ? "text-stone-100" : "text-orange-400 group-hover:text-orange-500"}`}
                         variant={"p"} 
                         text={text}
                     />

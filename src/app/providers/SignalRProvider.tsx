@@ -24,7 +24,7 @@ export default function SignalRProvider({
 
     useEffect(() => {
         const hubConnection = new HubConnectionBuilder()
-            .withUrl("http://localhost:5038/roomHub")
+            .withUrl("http://klick-server.andrewjfei.com/roomHub")
             .withAutomaticReconnect()
             .build();
 
@@ -52,8 +52,6 @@ export default function SignalRProvider({
             setCriteria(criteria);
 
             const team: Team = new Team(teamId, teamName);
-
-            console.log(team);
 
             // Set reference team for users to score for.
             setTeam(team);
@@ -97,7 +95,9 @@ export default function SignalRProvider({
         });
 
         hubConnection.on("Message", (connectionId: string, message: string) => {
-            
+            setMessages((messages) => [...messages, message]);
+
+            console.log(`Received message "${message}".`);
         });
 
         hubConnection
@@ -188,6 +188,16 @@ export default function SignalRProvider({
         }
     }
 
+    async function sendMessage(message: string): Promise<void> {
+        if (connection && roomCode) {
+            await connection.invoke("SendMessage", message);
+        }
+    }
+
+    function nextMessage(): void {
+        setMessages((messages) => messages.slice(1));
+    }
+
     return (
         <SignalRContext.Provider
             value={{
@@ -197,13 +207,16 @@ export default function SignalRProvider({
                 users,
                 criteria,
                 teams,
+                messages,
                 createRoom,
                 addCriterion,
                 addTeam,
                 startScoring,
                 joinRoom,
                 chooseName,
-                giveScore
+                giveScore,
+                sendMessage,
+                nextMessage,
             }}
         >
             {children}
