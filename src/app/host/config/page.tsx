@@ -103,12 +103,10 @@ export default function Config(): ReactNode {
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant={"h2"} text={"Criteria"} />
                             <IconButton
-                                type="button"
-                                text="Add Criterion"
+                                variant="outline"
+                                icon={IconPlus}
                                 onClick={() => setIsCriterionModalOpen(true)}
-                            >
-                                <IconPlus size={24} />
-                            </IconButton>
+                            />
                         </div>
                         <div className="flex-grow p-4 flex rounded-3xl border-2 border-white bg-white">
                             <div className="flex-grow flex flex-col justify-center items-center">
@@ -129,12 +127,10 @@ export default function Config(): ReactNode {
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant={"h2"} text={"Teams"} />
                             <IconButton
-                                type="button"
-                                text="Add Team"
+                                variant="outline"
+                                icon={IconPlus}
                                 onClick={() => setIsTeamModalOpen(true)}
-                            >
-                                <IconPlus size={24} />
-                            </IconButton>
+                            />
                         </div>
                         <div className="flex-grow p-4 flex rounded-3xl border-2 border-white bg-white">
                             <div className="flex-grow flex flex-col justify-center items-center">

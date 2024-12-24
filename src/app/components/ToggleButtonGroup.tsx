@@ -28,7 +28,7 @@ export default function ToggleButtonGroup({
     }
 
     return (
-        <div>
+        <div className="flex flex-row justify-between">
             {
                 toggleButtons.map((toggleButton, index: number) => (
                     <ToggleButton key={toggleButton.value} toggled={toggleButton.toggled} text={toggleButton.value} onToggle={() => handleToggle(index)} />

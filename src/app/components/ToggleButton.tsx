@@ -33,12 +33,12 @@ export default function ToggleButton({
 
     return (
         <button
-            className={`px-4 py-2 rounded-md ${isToggled ? "bg-orange-400" : "bg-orange-100"} ${className}`}
+            className={`px-5 py-3 rounded-xl ${isToggled ? "bg-orange-400" : "bg-orange-100"} ${className}`}
             type="button"
             disabled={disabled}
             onClick={handleToggle}
         >
-            <p className={`text font-semibold ${isToggled ? "text-white" : "text-orange-400"}`}>{ text.toUpperCase() }</p>
+            <p className={`text-xl font-semibold ${isToggled ? "text-white" : "text-orange-400"}`}>{ text.toUpperCase() }</p>
         </button>
     );
 }

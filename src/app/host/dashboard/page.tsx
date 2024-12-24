@@ -27,7 +27,7 @@ export default function Dashboard(): ReactNode {
                 <Tag text={roomCode} />
             </div>
             <div className="flex-grow flex flex-row">
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                     <div className="flex flex-row justify-start">
                         <Typography variant="h2" text="Leaderboard" />
                     </div>
@@ -48,14 +48,14 @@ export default function Dashboard(): ReactNode {
                                 />
                             ))}
                     </div>
-                </div>
+                </div> */}
                 <div className="flex-grow flex flex-col">
                     <div className="flex flex-col">
                         <div className="flex flex-row justify-between items-center">
                             <Typography variant="h2" text="Users" />
                             <Tag size="xl" text={users.length.toString()} />
                         </div>
-                        <div className="px-6 py-24 flex flex-row justify-center rounded-3xl bg-orange-100">
+                        <div className="p-4 flex flex-row justify-center rounded-3xl bg-orange-100">
                             {users.map((user: User) => (
                                 <Tag
                                     className="mx-2"
@@ -97,13 +97,10 @@ export default function Dashboard(): ReactNode {
                                     </div>
                                     {team.state === Scoring.NotStarted && (
                                         <IconButton
+                                            variant="outline"
+                                            icon={IconPlayerPlayFilled}
                                             onClick={() => handleStart(team.id)}
-                                        >
-                                            <IconPlayerPlayFilled
-                                                className="text-orange-500"
-                                                size={24}
-                                            />
-                                        </IconButton>
+                                        />
                                     )}
                                 </div>
                             ))}
